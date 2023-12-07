@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 
 
 def get_birthdays_per_week(users):
-    today_day = datetime(2023, 12, 26)
+    today_day = date.today()
     next_week = today_day + timedelta(days=7)
     birthday_days = {}
     for user in users:
