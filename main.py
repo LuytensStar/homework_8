@@ -8,22 +8,24 @@ def get_birthdays_per_week(users):
     for user in users:
         name = user['name']
         birthday = user['birthday']
-        if birthday.month == today_day.month and birthday.day >= today_day.day and birthday.day < today_day.day+7:
-            k = datetime(today_day.year, birthday.month, birthday.day) 
-            weekday_day = k.strftime('%A')
-            if weekday_day == 'Saturday':
-                k += timedelta(days=2)
-            elif weekday_day == 'Sunday':
-                k += timedelta(days=1)
-            birthday_days.setdefault(k.strftime('%A'), []).append(name)
-        elif birthday.month == next_week.month and birthday.day < next_week.day:
-            k = datetime(next_week.year, birthday.month, birthday.day)
-            weekday_day = k.strftime('%A')
-            if weekday_day == 'Saturday':
-                k += timedelta(days=2)
-            elif weekday_day == 'Sunday':
-                k += timedelta(days=1)
-            birthday_days.setdefault(k.strftime('%A'), []).append(name)
+        if birthday.month == today_day.month and birthday.day >= today_day.day:
+            if birthday.day < today_day.day+7:
+                k = datetime(today_day.year, birthday.month, birthday.day)
+                weekday_day = k.strftime('%A')
+                if weekday_day == 'Saturday':
+                    k += timedelta(days=2)
+                elif weekday_day == 'Sunday':
+                    k += timedelta(days=1)
+                birthday_days.setdefault(k.strftime('%A'), []).append(name)
+        elif birthday.month == next_week.month:
+            if birthday.day < next_week.day:
+                k = datetime(next_week.year, birthday.month, birthday.day)
+                weekday_day = k.strftime('%A')
+                if weekday_day == 'Saturday':
+                    k += timedelta(days=2)
+                elif weekday_day == 'Sunday':
+                    k += timedelta(days=1)
+                birthday_days.setdefault(k.strftime('%A'), []).append(name)
     return birthday_days
 
 
